@@ -1,0 +1,29 @@
+Sub enviaemail()
+    coluna = 2
+    linha = 9
+    While Cells(linha, coluna).Value <> ""
+        dataaviso = Cells(linha, coluna) + 14
+            If dataaviso = Date Then
+                Set objeto_outlook = CreateObject("Outlook.Application")
+                Set Email = objeto_outlook.createitem(0)
+                    If Cells(linha, 7) = "Bruno" Then
+                        Email.to = "bruno.soares@empresa.com.br"
+                    ElseIf Cells(linha, 7) = "Cássia" Then
+                        Email.to = "cassia@empresa.com.br"
+                    ElseIf Cells(linha, 7) = "Mateus" Then
+                        Email.to = "mateus@empresa.com.br"
+                    End If
+                Email.display
+                'Email.cc ='
+                Email.Subject = "Acompanhar proposta " & Cells(linha, 1).Value
+                        
+                Email.htmlbody = "Fala " & Cells(linha, 7) & "<br><br> Acompanhe a proposta " & Cells(linha, 1).Value & "<br><br> Cliente: " & Cells(linha, 5) & "<br><br> Produto: " & Cells(linha, 6)
+                Email.send
+                        
+                    
+            End If
+        linha = linha + 1
+          
+    Wend
+    MsgBox ("Os emails foram enviados")
+End Sub
